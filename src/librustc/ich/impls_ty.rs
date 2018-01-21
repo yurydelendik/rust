@@ -635,9 +635,8 @@ for ty::TypeVariants<'gcx>
                 closure_substs.hash_stable(hcx, hasher);
                 interior.hash_stable(hcx, hasher);
             }
-            TyTuple(inner_tys, from_diverging_type_var) => {
+            TyTuple(inner_tys) => {
                 inner_tys.hash_stable(hcx, hasher);
-                from_diverging_type_var.hash_stable(hcx, hasher);
             }
             TyProjection(ref projection_ty) => {
                 projection_ty.hash_stable(hcx, hasher);

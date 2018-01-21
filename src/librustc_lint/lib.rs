@@ -215,10 +215,6 @@ pub fn register_builtins(store: &mut lint::LintStore, sess: Option<&Session>) {
             reference: "issue #39207 <https://github.com/rust-lang/rust/issues/39207>",
         },
         FutureIncompatibleInfo {
-            id: LintId::of(RESOLVE_TRAIT_ON_DEFAULTED_UNIT),
-            reference: "issue #39216 <https://github.com/rust-lang/rust/issues/39216>",
-        },
-        FutureIncompatibleInfo {
             id: LintId::of(MISSING_FRAGMENT_SPECIFIER),
             reference: "issue #40107 <https://github.com/rust-lang/rust/issues/40107>",
         },
