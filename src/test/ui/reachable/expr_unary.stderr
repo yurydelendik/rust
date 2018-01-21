@@ -1,7 +1,7 @@
 error: unreachable expression
-  --> $DIR/expr_unary.rs:19:28
+  --> $DIR/expr_unary.rs:18:28
    |
-19 |     let x: ! = ! { return; 22 }; //~ ERROR unreachable
+18 |     let x: ! = ! { return; 22 }; //~ ERROR unreachable
    |                            ^^
    |
 note: lint level defined here
@@ -11,9 +11,9 @@ note: lint level defined here
    |         ^^^^^^^^^^^^^^^^
 
 error: cannot coerce `{integer}` to !
-  --> $DIR/expr_unary.rs:19:28
+  --> $DIR/expr_unary.rs:18:28
    |
-19 |     let x: ! = ! { return; 22 }; //~ ERROR unreachable
+18 |     let x: ! = ! { return; 22 }; //~ ERROR unreachable
    |                            ^^
    |
 note: lint level defined here
@@ -25,9 +25,9 @@ note: lint level defined here
    = note: for more information, see issue #46325 <https://github.com/rust-lang/rust/issues/46325>
 
 error[E0600]: cannot apply unary operator `!` to type `!`
-  --> $DIR/expr_unary.rs:19:16
+  --> $DIR/expr_unary.rs:18:16
    |
-19 |     let x: ! = ! { return; 22 }; //~ ERROR unreachable
+18 |     let x: ! = ! { return; 22 }; //~ ERROR unreachable
    |                ^^^^^^^^^^^^^^^^
 
 error: aborting due to 3 previous errors
