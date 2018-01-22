@@ -1,6 +1,6 @@
 [submodule "src/llvm"]
 	path = src/llvm
-	url = https://github.com/rust-lang/llvm.git
+	url = https://github.com/alexcrichton/llvm.git
 	branch = master
 [submodule "src/rt/hoedown"]
 	path = src/rt/hoedown
@@ -32,7 +32,7 @@
 	url = https://github.com/rust-lang-nursery/rls.git
 [submodule "src/libcompiler_builtins"]
 	path = src/libcompiler_builtins
-	url = https://github.com/rust-lang-nursery/compiler-builtins
+	url = https://github.com/alexcrichton/compiler-builtins
 [submodule "src/tools/clippy"]
 	path = src/tools/clippy
 	url = https://github.com/rust-lang-nursery/rust-clippy.git
