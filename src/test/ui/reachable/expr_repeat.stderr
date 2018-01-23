@@ -1,7 +1,7 @@
 error: unreachable expression
-  --> $DIR/expr_repeat.rs:20:25
+  --> $DIR/expr_repeat.rs:19:25
    |
-20 |     let x: [usize; 2] = [return; 2]; //~ ERROR unreachable
+19 |     let x: [usize; 2] = [return; 2]; //~ ERROR unreachable
    |                         ^^^^^^^^^^^
    |
 note: lint level defined here

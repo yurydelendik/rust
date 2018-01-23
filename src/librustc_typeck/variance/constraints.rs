@@ -330,7 +330,7 @@ impl<'a, 'tcx> ConstraintContext<'a, 'tcx> {
                 self.add_constraints_from_mt(current, mt, variance);
             }
 
-            ty::TyTuple(subtys, _) => {
+            ty::TyTuple(subtys) => {
                 for &subty in subtys {
                     self.add_constraints_from_ty(current, subty, variance);
                 }

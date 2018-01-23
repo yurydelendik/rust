@@ -80,11 +80,12 @@ This API is completely unstable and subject to change.
 #![feature(copy_closures, clone_closures)]
 #![feature(from_ref)]
 #![feature(match_default_bindings)]
-#![feature(never_type)]
+#![feature(exhaustive_patterns)]
 #![feature(quote)]
 #![feature(refcell_replace_swap)]
 #![feature(rustc_diagnostic_macros)]
 #![feature(slice_patterns)]
+#![cfg_attr(stage0, feature(never_type))]
 
 #[macro_use] extern crate log;
 #[macro_use] extern crate syntax;

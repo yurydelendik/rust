@@ -261,7 +261,7 @@ impl<'a, 'gcx, 'tcx> TyCtxt<'a, 'gcx, 'tcx> {
                 // Don't use `non_enum_variant`, this may be a univariant enum.
                 adt.variants[0].fields.get(i).map(|f| f.ty(self, substs))
             }
-            (&TyTuple(ref v, _), None) => v.get(i).cloned(),
+            (&TyTuple(ref v), None) => v.get(i).cloned(),
             _ => None,
         }
     }
@@ -299,7 +299,7 @@ impl<'a, 'gcx, 'tcx> TyCtxt<'a, 'gcx, 'tcx> {
                     }
                 }
 
-                ty::TyTuple(tys, _) => {
+                ty::TyTuple(tys) => {
                     if let Some((&last_ty, _)) = tys.split_last() {
                         ty = last_ty;
                     } else {
@@ -336,7 +336,7 @@ impl<'a, 'gcx, 'tcx> TyCtxt<'a, 'gcx, 'tcx> {
                         break;
                     }
                 },
-                (&TyTuple(a_tys, _), &TyTuple(b_tys, _))
+                (&TyTuple(a_tys), &TyTuple(b_tys))
                         if a_tys.len() == b_tys.len() => {
                     if let Some(a_last) = a_tys.last() {
                         a = a_last;
@@ -560,7 +560,7 @@ impl<'a, 'gcx, 'tcx> TyCtxt<'a, 'gcx, 'tcx> {
                 self.dtorck_constraint_for_ty(span, for_ty, depth+1, ety)
             }
 
-            ty::TyTuple(tys, _) => {
+            ty::TyTuple(tys) => {
                 tys.iter().map(|ty| {
                     self.dtorck_constraint_for_ty(span, for_ty, depth+1, ty)
                 }).collect()
@@ -783,9 +783,8 @@ impl<'a, 'gcx, 'tcx, W> TypeVisitor<'tcx> for TypeIdHasher<'a, 'gcx, 'tcx, W>
                     self.def_id(d);
                 }
             }
-            TyTuple(tys, defaulted) => {
+            TyTuple(tys) => {
                 self.hash(tys.len());
-                self.hash(defaulted);
             }
             TyParam(p) => {
                 self.hash(p.idx);
@@ -910,7 +909,7 @@ impl<'a, 'tcx> ty::TyS<'tcx> {
             -> Representability
         {
             match ty.sty {
-                TyTuple(ref ts, _) => {
+                TyTuple(ref ts) => {
                     // Find non representable
                     fold_repr(ts.iter().map(|ty| {
                         is_type_structurally_recursive(tcx, sp, seen, representable_cache, ty)
@@ -1178,7 +1177,7 @@ fn needs_drop_raw<'a, 'tcx>(tcx: TyCtxt<'a, 'tcx, 'tcx>,
         // state transformation pass
         ty::TyGenerator(..) => true,
 
-        ty::TyTuple(ref tys, _) => tys.iter().cloned().any(needs_drop),
+        ty::TyTuple(ref tys) => tys.iter().cloned().any(needs_drop),
 
         // unions don't have destructors regardless of the child types
         ty::TyAdt(def, _) if def.is_union() => false,

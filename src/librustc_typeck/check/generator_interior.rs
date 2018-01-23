@@ -89,7 +89,7 @@ pub fn resolve_interior<'a, 'gcx, 'tcx>(fcx: &'a FnCtxt<'a, 'gcx, 'tcx>,
     // Extract type components
     let types: Vec<_> = types.into_iter().map(|t| t.0).collect();
 
-    let tuple = fcx.tcx.intern_tup(&types, false);
+    let tuple = fcx.tcx.intern_tup(&types);
 
     debug!("Types in generator {:?}, span = {:?}", tuple, body.value.span);
 

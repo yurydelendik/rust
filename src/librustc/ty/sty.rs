@@ -145,11 +145,7 @@ pub enum TypeVariants<'tcx> {
     TyNever,
 
     /// A tuple type.  For example, `(i32, bool)`.
-    /// The bool indicates whether this is a unit tuple and was created by
-    /// defaulting a diverging type variable with feature(never_type) disabled.
-    /// It's only purpose is for raising future-compatibility warnings for when
-    /// diverging type variables start defaulting to ! instead of ().
-    TyTuple(&'tcx Slice<Ty<'tcx>>, bool),
+    TyTuple(&'tcx Slice<Ty<'tcx>>),
 
     /// The projection of an associated type.  For example,
     /// `<T as Trait<..>>::N`.
@@ -414,7 +410,7 @@ impl<'tcx> GeneratorInterior<'tcx> {
 
     pub fn as_slice(&self) -> &'tcx Slice<Ty<'tcx>> {
         match self.witness.sty {
-            ty::TyTuple(s, _) => s,
+            ty::TyTuple(s) => s,
             _ => bug!(),
         }
     }
@@ -1263,7 +1259,7 @@ impl RegionKind {
 impl<'a, 'gcx, 'tcx> TyS<'tcx> {
     pub fn is_nil(&self) -> bool {
         match self.sty {
-            TyTuple(ref tys, _) => tys.is_empty(),
+            TyTuple(ref tys) => tys.is_empty(),
             _ => false,
         }
     }
@@ -1271,15 +1267,6 @@ impl<'a, 'gcx, 'tcx> TyS<'tcx> {
     pub fn is_never(&self) -> bool {
         match self.sty {
             TyNever => true,
-            _ => false,
-        }
-    }
-
-    /// Test whether this is a `()` which was produced by defaulting a
-    /// diverging type variable with feature(never_type) disabled.
-    pub fn is_defaulted_unit(&self) -> bool {
-        match self.sty {
-            TyTuple(_, true) => true,
             _ => false,
         }
     }

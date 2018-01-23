@@ -718,14 +718,14 @@ impl<'a, 'gcx, 'tcx> InferCtxt<'a, 'gcx, 'tcx> {
                 }).map(|sp| self.tcx.sess.codemap().def_span(sp)); // the sp could be an fn def
 
                 let found = match found_trait_ref.skip_binder().substs.type_at(1).sty {
-                    ty::TyTuple(ref tys, _) => tys.iter()
+                    ty::TyTuple(ref tys) => tys.iter()
                         .map(|_| ArgKind::empty()).collect::<Vec<_>>(),
                     _ => vec![ArgKind::empty()],
                 };
                 let expected = match expected_trait_ref.skip_binder().substs.type_at(1).sty {
-                    ty::TyTuple(ref tys, _) => tys.iter()
+                    ty::TyTuple(ref tys) => tys.iter()
                         .map(|t| match t.sty {
-                            ty::TypeVariants::TyTuple(ref tys, _) => ArgKind::Tuple(
+                            ty::TypeVariants::TyTuple(ref tys) => ArgKind::Tuple(
                                 span,
                                 tys.iter()
                                     .map(|ty| ("_".to_owned(), format!("{}", ty.sty)))
@@ -937,7 +937,7 @@ impl<'a, 'gcx, 'tcx> InferCtxt<'a, 'gcx, 'tcx> {
         fn build_fn_sig_string<'a, 'gcx, 'tcx>(tcx: ty::TyCtxt<'a, 'gcx, 'tcx>,
                                                trait_ref: &ty::TraitRef<'tcx>) -> String {
             let inputs = trait_ref.substs.type_at(1);
-            let sig = if let ty::TyTuple(inputs, _) = inputs.sty {
+            let sig = if let ty::TyTuple(inputs) = inputs.sty {
                 tcx.mk_fn_sig(
                     inputs.iter().map(|&x| x),
                     tcx.mk_infer(ty::TyVar(ty::TyVid { index: 0 })),
