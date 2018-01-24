@@ -55,9 +55,9 @@ RUN ./install-mips-musl.sh
 COPY dist-various-1/install-mipsel-musl.sh /build
 RUN ./install-mipsel-musl.sh
 
-ENV TARGETS=asmjs-unknown-emscripten
-ENV TARGETS=$TARGETS,wasm32-unknown-emscripten
-ENV TARGETS=$TARGETS,x86_64-rumprun-netbsd
+#ENV TARGETS=asmjs-unknown-emscripten
+#ENV TARGETS=$TARGETS,wasm32-unknown-emscripten
+ENV TARGETS=x86_64-rumprun-netbsd
 ENV TARGETS=$TARGETS,mips-unknown-linux-musl
 ENV TARGETS=$TARGETS,mipsel-unknown-linux-musl
 ENV TARGETS=$TARGETS,arm-unknown-linux-musleabi
